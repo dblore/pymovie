@@ -1,29 +1,35 @@
 import requests
 from bs4 import BeautifulSoup
 
-URL = "https://www.imdb.com/calendar?region=GB&ref_=rlm"
-baseURL = "https://www.imdb.com"
-mainPage = requests.get(URL)
-
-home = BeautifulSoup(mainPage.content, 'html.parser')
-
-main = home.find(id="main")
-links = main.find_all('a')
-dates = main.find_all('h4')
-
-for link in links:
-    title = link.text
-    url = link.get('href')
-
-    filmURL = "https://www.imdb.com" + url
-
-    filmPage = requests.get(filmURL)
+def film_names():
+    global filmURL
     
-    film = BeautifulSoup(filmPage.content, 'html.parser')
-
-    mainFilm = film.find_all('div', {'class': 'subtext'})
+    URL = "https://www.imdb.com/calendar?region=GB&ref_=rlm"
+    mainPage = requests.get(URL)
     
-    for div in mainFilm:
-        print (div.find('a')['href'])
+    home = BeautifulSoup(mainPage.content, 'html.parser')
 
-    #print("{} - {}".format(title, filmURL))
+    index = home.find(id="main")
+    links = index.find_all('a')
+
+    for link in links:
+        title = link.text
+        url = link.get('href')
+        filmURL = "https://www.imdb.com" + url
+        print("{}: {}".format(title, filmURL))
+
+def main():
+    film_names()
+
+if __name__ == "__main__":
+    main()
+
+
+    # filmPage = requests.get(filmURL)
+    
+    # film = BeautifulSoup(filmPage.content, 'html.parser')
+
+    # mainFilm = film.find_all('div', {'class': 'subtext'})
+    
+    # for div in mainFilm:
+    #     print (div.find_all('a'))
