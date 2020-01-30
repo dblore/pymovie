@@ -23,13 +23,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-    # filmPage = requests.get(filmURL)
-    
-    # film = BeautifulSoup(filmPage.content, 'html.parser')
-
-    # mainFilm = film.find_all('div', {'class': 'subtext'})
-    
-    # for div in mainFilm:
-    #     print (div.find_all('a'))
